@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <title>掌停</title>
+	
+</head>
+<style type="text/css">
+    body,
+    html,
+    #container {
+        height: 100%;
+        margin: 0px;
+    }
+    .AppMain{
+    		height: 100%;
+        margin: 0px;
+        background-color: red;
+        position: relative;
+        overflow: hidden;
+    }
+    .Map{
+    		height: 100%;
+    		width: 100%;
+        background-color: gray;
+        position: absolute;
+        top: -64px;
+        left:0px ;
+    }
+    .Bottom_bar{
+    		height: 64px;
+    		width: 100%;
+    		 position: absolute;
+        bottom: 0px;
+        left:0px ;
+        background-color: #45bcc6;
+    }
+    .Bottom_bar .SearchView{
+    		background-color: white;
+    		border-radius: 5px;
+
+    		width: 250px;
+    		height: 35px;
+    		margin: 15px auto;
+    		text-align: center;
+    		line-height: 35px;
+    		
+    		
+    		display:flex;
+        align-items: center;
+        justify-content: center;
+        font: 16px;
+    }
+    .Bottom_bar .SearchView img
+    {
+    		background-color: red;
+    		width: 20px;
+    		height: 20px;
+    		
+    }
+</style>
+
+<body>
+	<!--地图容器-->
+	<div class="AppMain">
+		<div class="Map">
+			<div id="container" tabindex="0">
+
+
+
+
+    			</div>
+		</div>
+		<div class="Bottom_bar">
+			<div class="SearchView">
+				<img src=""/>  &nbsp;&nbsp;目的地车位预定
+			</div>
+		</div>
+		
+	</div>
+    
+   
+	<script 
+	type="text/javascript"
+	src="http://webapi.amap.com/maps?v=1.4.6&key=ccd2b1f7776578693a7a3455d0ad32de">
+	</script>
+    
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+   <script type="text/javascript">
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 10,
+            center: [116.480983, 40.0958]
+        });
+    </script>
+</body>
+
+</html>
