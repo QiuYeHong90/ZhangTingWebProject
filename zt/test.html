@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<title>Text</title>
+		<script src="//webapi.amap.com/maps?v=1.4.6&key=您申请的key值"></script>
+		<style>
+			html,
+			body,
+			#container {
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				font-size: 13px;
+			}
+			
+			/*文字背景*/
+			.PointClass {
+				position: relative;
+				background-color: rgba(0, 0, 0, 0.5);
+				/*width: 170px;*/
+				/*height: 40px;*/
+				border-radius: 9px;
+				font-size: 13px;
+				padding: 6px;
+				color: white;
+			}
+			
+			.PointClass .PointLeftClass {
+				display: inline-block;
+				text-align: left;
+				width: 100px;
+			}
+			
+			.PointClass .PointRightClass {
+				display: inline-block;
+				text-align: right;
+			}
+			
+			
+			/*下面的三角符号*/
+			
+			.sanJiaoSpan {
+				/*background-color: red;*/
+				border-left: 9px solid transparent;
+				border-top: 12px solid rgba(0, 0, 0, 0.5);
+				border-right: 9px solid transparent;
+			}
+			
+			.sanJiaoDiv {
+				position: absolute;
+				width: 100%;
+				height: 0px;
+				bottom: -12px;
+				left: 0px;
+				background-color: rgba(0, 0, 0, 0);
+				text-align: center;
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="container"></div>
+		<script>
+			var map = new AMap.Map("container", {
+				viewMode: '3D',
+				resizeEnable: true,
+				center: [116.40, 39.90], //地图中心点
+			});
+			var addressHtml ='<div class="PointClass"><div class="PointLeftClass"><div>'+'重庆观音桥'
+			
+			var syCheWeiHtml = '</div><div>'+'剩余车位100'
+			
+			var juLiHtml = '</div></div><div class="PointRightClass"><div>'+'1000米'
+			
+			var jiaGe =  '</div><div>'+'2元/小时'
+			
+			var endTHtml = '</div></div></div>'
+			
+			var contentHtml = addressHtml+syCheWeiHtml+juLiHtml+jiaGe+endTHtml
+			
+			var sanJiaoHtml = '<div class="sanJiaoDiv"><span class="sanJiaoSpan"></span></div>'
+			var text = new AMap.Text({
+				name:'=====',
+				text: sanJiaoHtml+contentHtml,
+				textAlign: 'center', // 'left' 'right', 'center',
+				verticalAlign: 'middle', //middle 、bottom
+				draggable: false,
+				cursor: 'pointer',
+				angle: 0,
+				style: {
+					'background-color': 'rgba(0,0,0,0.0)',
+					'border': 'solid 0px rgba(0,0,0,0)',
+					 'border-radius': '0px',
+					'overflow': 'inherit',
+					'position': 'relative',
+					'top': '-22px',
+					'padding':'0px',
+				},
+				position: [116.396923, 39.918203]
+			});
+			text.content = '1234567890'
+			 text.on('click', markerClick);
+			text.setMap(map);
+			
+			function markerClick(e){
+				console.log(e.target.content)
+			}
+		</script>
+	</body>
+
+</html>

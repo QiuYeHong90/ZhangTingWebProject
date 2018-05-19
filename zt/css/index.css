@@ -1,0 +1,94 @@
+ body,
+ html,
+ #container {
+ 	height: 100%;
+ 	margin: 0px;
+ }
+ 
+ .AppMain {
+ 	height: 100%;
+ 	margin: 0px;
+ 	background-color: red;
+ 	position: relative;
+ 	overflow: hidden;
+ }
+ 
+ .Map {
+ 	height: 100%;
+ 	width: 100%;
+ 	background-color: gray;
+ 	position: absolute;
+ 	top: -64px;
+ 	left: 0px;
+ }
+ 
+ .Bottom_bar {
+ 	height: 64px;
+ 	width: 100%;
+ 	position: absolute;
+ 	bottom: 0px;
+ 	left: 0px;
+ 	background-color: #45bcc6;
+ }
+ 
+ .Bottom_bar .SearchView {
+ 	background-color: white;
+ 	border-radius: 5px;
+ 	width: 250px;
+ 	height: 35px;
+ 	margin: 15px auto;
+ 	text-align: center;
+ 	line-height: 35px;
+ 	display: flex;
+ 	align-items: center;
+ 	justify-content: center;
+ 	font: 16px;
+ }
+ 
+ .Bottom_bar .SearchView img {
+ 	background-color: red;
+ 	width: 20px;
+ 	height: 20px;
+ }
+ /*=====================大头针================================*/
+ /*文字背景*/
+ 
+ .PointClass {
+ 	position: relative;
+ 	background-color: rgba(0, 0, 0, 0.5);
+ 	/*width: 170px;*/
+ 	/*height: 40px;*/
+ 	border-radius: 9px;
+ 	font-size: 13px;
+ 	padding: 6px;
+ 	color: white;
+ }
+ 
+ .PointClass .PointLeftClass {
+ 	display: inline-block;
+ 	text-align: left;
+ 	min-width: 100px;
+ }
+ 
+ .PointClass .PointRightClass {
+ 	display: inline-block;
+ 	text-align: right;
+ }
+ /*下面的三角符号*/
+ 
+ .sanJiaoSpan {
+ 	/*background-color: red;*/
+ 	border-left: 9px solid transparent;
+ 	border-top: 12px solid rgba(0, 0, 0, 0.5);
+ 	border-right: 9px solid transparent;
+ }
+ 
+ .sanJiaoDiv {
+ 	position: absolute;
+ 	width: 100%;
+ 	height: 0px;
+ 	bottom: -12px;
+ 	left: 0px;
+ 	background-color: rgba(0, 0, 0, 0);
+ 	text-align: center;
+ }

@@ -1,127 +1,143 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+	<head>
 
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <title>掌停</title>
-	
-</head>
-<style type="text/css">
-    body,
-    html,
-    #container {
-        height: 100%;
-        margin: 0px;
-    }
-    .AppMain{
-    		height: 100%;
-        margin: 0px;
-        background-color: red;
-        position: relative;
-        overflow: hidden;
-    }
-    .Map{
-    		height: 100%;
-    		width: 100%;
-        background-color: gray;
-        position: absolute;
-        top: -64px;
-        left:0px ;
-    }
-    .Bottom_bar{
-    		height: 64px;
-    		width: 100%;
-    		 position: absolute;
-        bottom: 0px;
-        left:0px ;
-        background-color: #45bcc6;
-    }
-    .Bottom_bar .SearchView{
-    		background-color: white;
-    		border-radius: 5px;
+		<title>掌停</title>
+		<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+		<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=ccd2b1f7776578693a7a3455d0ad32de"></script>
+		<!--<script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>-->
+		<!--搜索-->
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 
-    		width: 250px;
-    		height: 35px;
-    		margin: 15px auto;
-    		text-align: center;
-    		line-height: 35px;
-    		
-    		
-    		display:flex;
-        align-items: center;
-        justify-content: center;
-        font: 16px;
-    }
-    .Bottom_bar .SearchView img
-    {
-    		background-color: red;
-    		width: 20px;
-    		height: 20px;
-    		
-    }
-    
-    .alert_1{
-    		width: 100%;
-    		height: 100%;
-        margin: 0px;
-        background-color: rgba(0,0,0,0.7);
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 161;
-        
-    }
-    
-    .amap-logo{
-    		display: none;
-    }
-</style>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script type="text/javascript" src="js/position.js"></script>
+		<script type="text/javascript" src="js/network.js"></script>
+	</head>
+	<style type="text/css">
+		.alert_1 {
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			background-color: rgba(0, 0, 0, 0.7);
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 161;
+		}
+		
+		.amap-logo {
+			display: none;
+		}
+	</style>
 
-<body>
-	<!--地图容器-->
-	<div class="AppMain">
-		<div class="Map">
-			<div id="container" tabindex="0">
-
-
-
-
-    			</div>
-		</div>
-		<div class="Bottom_bar">
-			<div class="SearchView">
-				<img src=""/>  &nbsp;&nbsp;目的地车位预定
+	<body>
+		<!--地图容器-->
+		<div class="AppMain">
+			<div class="Map">
+				<div id="container" tabindex="0">
+				</div>
 			</div>
+			<div class="Bottom_bar">
+				<div class="SearchView">
+					<img src="" /> &nbsp;&nbsp;目的地车位预定
+				</div>
+			</div>
+
 		</div>
-		
-		
-		
-		
-		
-	</div>
-	<div class="alert_1">
+		<!--<div class="alert_1">
 			
 	</div>
-	
-    
-   
-	<script 
-	type="text/javascript"
-	src="http://webapi.amap.com/maps?v=1.4.6&key=ccd2b1f7776578693a7a3455d0ad32de">
-	</script>
-    <!--搜索-->
-	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-   <script type="text/javascript">
-        var map = new AMap.Map('container', {
-            resizeEnable: true,
-            zoom: 10,
-            center: [116.480983, 40.0958]
-        });
-    </script>
-</body>
+	-->
+
+		<script type="text/javascript">
+			var map = new AMap.Map('container', {
+				resizeEnable: true,
+				zoom: 10,
+				//          center: [116.480983, 40.0958]
+			});
+			getLocation(map, function(data1) {
+				console.log(data1.position)
+				//      
+				getCityAndPark(function(data) {
+					console.log(data.data)
+					var dataArray = [];
+					dataArray = data.data;
+					for(var i = 0; i < dataArray.length; i++) {
+						var model = dataArray[i]
+
+						var tempArr = []
+						tempArr = model.parkList
+						for(var j = 0; j < tempArr.length; j++) {
+							var parkModel = tempArr[j]
+							insertPointInMap(parkModel,data1)
+						}
+					}
+				}, function(msg) {
+
+				})
+			}, function(error) {
+				console.log(error)
+
+			})
+
+			function insertPointInMap(parkModel,data1) {
+				var lnglat2 =  new AMap.LngLat(data1.position.lng,data1.position.lat)
+				var lnglat1 = new AMap.LngLat(parseFloat(parkModel.longitude), parseFloat(parkModel.latitude))
+				var juli = Math.round(lnglat1.distance(lnglat2))
+				var juliStr = ''
+				if (juli>1000) {
+					juliStr = (juli/1000 ).toString()+'千米'
+				}else{
+					juliStr = juli.toString()+'米'
+				}
+				//				parkList.totalParkCar
+				var addressHtml = '<div class="PointClass"><div class="PointLeftClass"><div>' + parkModel.parkName
+
+				var syCheWeiHtml = '</div><div>' + '剩余车位' + parkModel.totalParkCar
+
+				var juLiHtml = '</div></div><div class="PointRightClass"><div>' + juliStr
+
+				var jiaGe = '</div><div>' + parkModel.price + '元/小时'
+
+				var endTHtml = '</div></div></div>'
+
+				var contentHtml = addressHtml + syCheWeiHtml + juLiHtml + jiaGe + endTHtml
+
+				var sanJiaoHtml = '<div class="sanJiaoDiv"><span class="sanJiaoSpan"></span></div>'
+				var text = new AMap.Text({
+					name: '=====',
+					text: sanJiaoHtml + contentHtml,
+					textAlign: 'center', // 'left' 'right', 'center',
+					verticalAlign: 'middle', //middle 、bottom
+					draggable: false,
+					cursor: 'pointer',
+					angle: 0,
+					style: {
+						'background-color': 'rgba(0,0,0,0.0)',
+						'border': 'solid 0px rgba(0,0,0,0)',
+						'border-radius': '0px',
+						'overflow': 'inherit',
+						'position': 'relative',
+						'top': '-22px',
+						'padding': '0px',
+					},
+
+					position: [parseFloat(parkModel.longitude), parseFloat(parkModel.latitude)]
+				});
+				//				text.content = JSON.stringify(parkList)
+				text.on('click', markerClick);
+				text.setMap(map);
+
+				function markerClick(e) {
+					console.log(e.target.content)
+				}
+			}
+		</script>
+	</body>
 
 </html>
